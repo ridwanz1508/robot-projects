@@ -1,22 +1,23 @@
+/*
+Compounents : 
+  1. Ultrasonic Sensor
+  2. Infrared Sensor
+  3. UV Tron
+  4. Flame Detector
+  5. TCS 3200
+  6. Arduino Mega
+  7. Servo Motor
+  8. Relay & Pump DC
+*/
+
+
 #include <NewPing.h>
 #include <Servo.h>
 #include <FlexiTimer2.h>
 
 //mendifinisikan port 
-//Servo arm1, arm2;
 Servo servo[4][3];
 const int servo_pin[4][3] = { {2, 3, 4}, {5, 6, 7}, {8, 9, 10}, {11, 12, 13} };
-
-/* const float length = 25
- * const float length_b =55.5
- * const float length_c =20.5
- * const float length_side =  61
- * const float z_absolute  = -28
- * 
- * const float z_default = -50, z_up = -30, z_boot = z_absolute;
- * const float x_default = 62, x_offset = 0;
- * const float y_start = 0, y_step = 40;
- */
 
 /* ukuran kaki sudut ---------------------------------------------------------*/
 const float length_a = 55; //55
@@ -111,8 +112,8 @@ int green = 0;
 int blue = 0;
 
 ////sensor uvtron
-//int uvtron1 = 32;
-//int uvtron2 = 33;
+int uvtron1 = 32;
+int uvtron2 = 33;
 
 // Inisialisasi pin servo
 const int servoPin1 = 9;
@@ -137,17 +138,15 @@ void setup (){
   servo1.write(openAngle);
   servo2.write(openAngle);
   
-/*
+
   //inisialisai lengan parameter di awal
   arm1.attach (14); // naik-turun
   arm2.attach (15); // capit
-  
   arm1.write(90);
   delay(1000);
 
   pinMode(uvtron1, OUTPUT);
   pinMode(uvtron2, INPUT);
-*/
 
   //pinMode(relay, OUTPUT);
   pinMode(s0, OUTPUT);
@@ -216,30 +215,11 @@ void loop(){
   int uSBL = sonarBL.ping_cm();  //ultra belakang kiri
   Serial.println ("Back-L : " +String(uSBL));
 
-/*
   int api1 = analogRead(A1);
   int api2 = analogRead(A2);
   int api3 = analogRead(A3);
   int api4 = analogRead(A4);
   int api5 = analogRead(A5);
-
-  int maju();
-  int belok_kiri();
-  int belok_kanan();
-  int balik_kiri();
-  int balik_kanan();
-  int diam();
-  int semprot();
-  int diam1();
-
-  //deklarasi gerak untuk korban
-  int stand();
-  int naik_speed();
-  int lepas();
-  int tangkap();
-  int cari_zona();
-  int color();
-*/
 
   //int set_site();
   //deteksi korban
@@ -273,13 +253,11 @@ void loop(){
       stand();
       wait_all_reach();}}
 
-/*
   //deteksi area biru, naikan speed
   else if (((red > green &&  blue < green) && blue < 25 && red > 40) && (uS1>3 && uS1<5)){
     Serial.println("Blue Color");
     wait_all_reach();
     unsigned int naik_speed();}
-*/
 
   //mencari safety zone
   if (red == 106 && green ==109 && blue ==122){
@@ -293,9 +271,8 @@ void loop(){
     //lepas();
     //delay(1000);
     }
-    
 
-/*
+  
   //api terdeteksi, eksekusi
   if ((api2>800 || api3>800 || api4>800) && (uvtron1, HIGH) && (uS1>5 && uS1<10)) { //ubah jarak penyemprotan
     digitalWrite(relay, HIGH);
@@ -311,9 +288,7 @@ void loop(){
   else{
     digitalWrite(relay, LOW);
     delay(1000);}
-*/
-
-  /*
+  
   //deteksi warna selain arena (putih) maka mundur
   else if ((blue < red && blue < green && (blue && red && green) < 25) && (uS1>3 && uS1<5)){
     if (red - green <= 5 && red - green >= 0 && ((green - blue) || (red - blue)) < 5 && blue < 50){
@@ -325,7 +300,6 @@ void loop(){
       else{
         balik_kiri();}
     }}
-*/
  
   //inisialiasi gerak robot
   if (uSBR < thresh && uSBR > 1){
@@ -350,7 +324,6 @@ void loop(){
     int balik_kiri(unsigned int step);
     delay(800);}}
 
- /*
   randNumber = random(1,3);
   Serial.println(randNumber);
     if(randNumber == 1){
@@ -359,8 +332,7 @@ void loop(){
             
   else if(randNumber == 2){
     belok_kiri(5);
-    delay(200);}}  
-*/  
+    delay(200);}}    
 
   else {
     maju(1);}  
@@ -384,7 +356,6 @@ void color()
   green = pulseIn(out, digitalRead(out) == HIGH ? LOW : HIGH);
 }
 
-/*
 void semprot(){
   digitalWrite(relay, HIGH); 
   delay(5000);
@@ -396,33 +367,6 @@ void cek_kondisi(){
   if (uvtron1, HIGH){
   semprot();}
 }
-
-void tangkap(){
-  //turun lengan
-  randNumber = random(1,3);
-  Serial.println(randNumber);
-  delay(500);
-  while(1){
-    arm1.write(90);
-    break;}
-  while(1){
-    arm2.write(30);
-    break;}
-  while(1){
-    arm1.write(90);
-    break;}
-}
-
-void lepas(){
-  wait_all_reach();
-  while(1){
-    arm1.write(90);
-    break;}
-  while(1){
-    arm2.write(30);
-    break;}
-}
-*/
 
   //Fungsi untuk menggerakkan servo 1 dan servo 2
   void moveServos(int angle) {
