@@ -1,3 +1,15 @@
+/*
+Components list: 
+1. Brushless / Motor DC
+2. Arduino UNO
+3. JSN SR04
+4. Driver L298N
+5. Power Voltage
+6. ESP Cam
+7. BMP Preassure 
+8. IMU Sensor
+*/
+
 #include <NewPing.h>
 #include <Wire.h>
 #include <MPU6050.h>
